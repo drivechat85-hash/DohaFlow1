@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DohaFlow | Smart School Run Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="h-full text-slate-100 bg-slate-950 antialiased selection:bg-emerald-500 selection:text-slate-950 flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Tagline -->
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-lg shadow-emerald-500/20">
+          DF
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-bold tracking-tight text-white">Doha<span class="text-emerald-400">Flow</span></span>
+            <span class="bg-emerald-500/10 text-emerald-400 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border border-emerald-500/20">
+              Live MVP
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">Smart School Run & Micro-Mobility Platform</p>
+        </div>
+      </div>
+
+      <!-- Quick Action / Hackathon Info -->
+      <div class="flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-2 text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+          <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
+          <span>MES Youth Hackathon 2026 Entry</span>
+        </div>
+        <button onclick="switchTab('carpool')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-sm transition-all shadow-md shadow-emerald-500/10 flex items-center gap-2">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Find Commute</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Top Banner: Real-time Hackathon Impact Tracker -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass-card rounded-2xl p-4 border border-slate-800">
+        <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-medium">
+          <span>Active Carpools</span>
+          <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white" id="stat-groups">14</div>
+        <div class="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
+          <i data-lucide="trending-up" class="w-3 h-3"></i> +3 groups matched today
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 border border-slate-800">
+        <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-medium">
+          <span>Cars Off the Road</span>
+          <i data-lucide="car" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white" id="stat-cars">42</div>
+        <div class="text-[11px] text-slate-400 mt-1">Across Abu Hamour & Ain Khaled</div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 border border-slate-800">
+        <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-medium">
+          <span>Gate Delay Reduced</span>
+          <i data-lucide="clock" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400" id="stat-delay">18 min</div>
+        <div class="text-[11px] text-slate-400 mt-1">Avg per family during morning peak</div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 border border-slate-800">
+        <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-medium">
+          <span>CO₂ Emissions Saved</span>
+          <i data-lucide="leaf" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white" id="stat-co2">96.6 kg</div>
+        <div class="text-[11px] text-emerald-400 mt-1">Calculated via live sample data</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="flex border-b border-slate-800 gap-6 text-sm font-semibold">
+      <button id="tab-carpool" onclick="switchTab('carpool')" class="pb-3 border-b-2 border-emerald-400 text-emerald-400 flex items-center gap-2">
+        <i data-lucide="car" class="w-4 h-4"></i> Carpool Matcher
+      </button>
+      <button id="tab-stagger" onclick="switchTab('stagger')" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2">
+        <i data-lucide="sliders" class="w-4 h-4"></i> Gate Slot Staggering
+      </button>
+      <button id="tab-analytics" onclick="switchTab('analytics')" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Impact Simulator
+      </button>
+    </div>
+
+    <!-- TAB 1: CARPOOL MATCHER (PRIMARY MVP FEATURE) -->
+    <div id="view-carpool" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Input Control Form -->
+      <div class="lg:col-span-4 glass-card rounded-2xl p-6 border border-slate-800 space-y-5 h-fit">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="search" class="w-5 h-5 text-emerald-400"></i> Match Neighborhood
+          </h2>
+          <span class="text-xs text-slate-500">Step 1 of 2</span>
+        </div>
+
+        <!-- School Selection -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Target School</label>
+          <div class="relative">
+            <select id="school-select" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 appearance-none focus:outline-none focus:border-emerald-500">
+              <option value="MES Indian School">MES Indian School (Abu Hamour)</option>
+              <option value="Stafford Sri Lankan School">Stafford Sri Lankan School Doha</option>
+              <option value="Doha British School">Doha British School (Ain Khaled)</option>
+              <option value="Qatar Academy Doha">Qatar Academy Doha (Education City)</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3 pointer-events-none"></i>
+          </div>
+        </div>
+
+        <!-- Zone / District Selection -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Your Compound / Residential Zone</label>
+          <div class="relative">
+            <select id="zone-select" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 appearance-none focus:outline-none focus:border-emerald-500">
+              <option value="Al Thumama">Al Thumama (Zone 47)</option>
+              <option value="Ain Khaled">Ain Khaled (Zone 56)</option>
+              <option value="Abu Hamour">Abu Hamour (Zone 56)</option>
+              <option value="Al Waab">Al Waab (Zone 55)</option>
+              <option value="Madinat Khalifa">Madinat Khalifa South (Zone 34)</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3 pointer-events-none"></i>
+          </div>
+        </div>
+
+        <!-- Desired Arrival Slot -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Desired Gate Drop-off Time</label>
+          <div class="relative">
+            <input type="time" id="time-select" value="06:45" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <!-- Preferences Checkboxes -->
+        <div class="space-y-2 pt-1">
+          <label class="block text-xs font-semibold text-slate-400">Security & Filters</label>
+          <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+            <input type="checkbox" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
+            <span>Verified Parent Portal Credentials Only</span>
+          </label>
+          <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+            <input type="checkbox" checked class="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0">
+            <span>Same Grade Level Preferred</span>
+          </label>
+        </div>
+
+        <button onclick="runMatchingAlgorithm()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+          <i data-lucide="zap" class="w-4 h-4"></i> Run AI Carpool Matcher
+        </button>
+      </div>
+
+      <!-- Results Display Panel -->
+      <div class="lg:col-span-8 space-y-4">
+        <div class="flex items-center justify-between bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+          <div>
+            <h3 class="font-bold text-white text-base">Matched Verified Families</h3>
+            <p class="text-xs text-slate-400" id="search-summary-text">Showing matches for MES Indian School in Al Thumama</p>
+          </div>
+          <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-lg border border-slate-700" id="match-count-badge">
+            3 Matches Found
+          </span>
+        </div>
+
+        <!-- Dynamic Results Container -->
+        <div id="carpool-results-list" class="space-y-3 custom-scrollbar max-h-[600px] overflow-y-auto pr-1">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: STAGGERED ARRIVAL SCHEDULER -->
+    <div id="view-stagger" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 border border-slate-800">
+        <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+          <i data-lucide="clock" class="w-5 h-5 text-emerald-400"></i> Smart Gate Arrival Window Allocation
+        </h2>
+        <p class="text-xs text-slate-400 mb-6 max-w-3xl">
+          By spreading 1,000 arrival cars across four 10-minute departure windows, DohaFlow prevents queue bottlenecks outside school gates on major corridors like E-Ring Road.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-slate-900 p-4 rounded-xl border border-emerald-500/30">
+            <div class="text-xs text-emerald-400 font-bold mb-1">WINDOW A (RECOMMENDED)</div>
+            <div class="text-xl font-bold text-white">06:35 - 06:45 AM</div>
+            <div class="text-xs text-slate-400 mt-2">Gate Queue Heatmap: <span class="text-emerald-400">Low (15%)</span></div>
+            <div class="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
+              <div class="bg-emerald-400 h-full w-[15%]"></div>
+            </div>
+            <button onclick="selectWindow('06:35 - 06:45 AM', this)" class="mt-4 w-full bg-emerald-500 text-slate-950 font-bold py-1.5 rounded-lg text-xs">Reserve Slot</button>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-amber-500/30">
+            <div class="text-xs text-amber-400 font-bold mb-1">WINDOW B</div>
+            <div class="text-xl font-bold text-white">06:45 - 06:55 AM</div>
+            <div class="text-xs text-slate-400 mt-2">Gate Queue Heatmap: <span class="text-amber-400">Moderate (60%)</span></div>
+            <div class="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
+              <div class="bg-amber-400 h-full w-[60%]"></div>
+            </div>
+            <button onclick="selectWindow('06:45 - 06:55 AM', this)" class="mt-4 w-full bg-slate-800 text-slate-200 hover:bg-slate-700 font-semibold py-1.5 rounded-lg text-xs">Reserve Slot</button>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-rose-500/30">
+            <div class="text-xs text-rose-400 font-bold mb-1">WINDOW C (PEAK CONGESTION)</div>
+            <div class="text-xl font-bold text-white">06:55 - 07:05 AM</div>
+            <div class="text-xs text-slate-400 mt-2">Gate Queue Heatmap: <span class="text-rose-400">Critical (95%)</span></div>
+            <div class="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
+              <div class="bg-rose-400 h-full w-[95%]"></div>
+            </div>
+            <button onclick="selectWindow('06:55 - 07:05 AM', this)" class="mt-4 w-full bg-slate-800 text-slate-200 hover:bg-slate-700 font-semibold py-1.5 rounded-lg text-xs">Reserve Slot</button>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400 font-bold mb-1">WINDOW D</div>
+            <div class="text-xl font-bold text-white">07:05 - 07:15 AM</div>
+            <div class="text-xs text-slate-400 mt-2">Gate Queue Heatmap: <span class="text-emerald-400">Low (25%)</span></div>
+            <div class="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
+              <div class="bg-emerald-400 h-full w-[25%]"></div>
+            </div>
+            <button onclick="selectWindow('07:05 - 07:15 AM', this)" class="mt-4 w-full bg-slate-800 text-slate-200 hover:bg-slate-700 font-semibold py-1.5 rounded-lg text-xs">Reserve Slot</button>
+          </div>
+        </div>
+
+        <!-- Live Slot Confirmation Toast -->
+        <div id="slot-confirmation" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 flex items-center justify-between text-xs text-emerald-300">
+          <div class="flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+            <span id="slot-confirmation-text">Selected Window: 06:35 - 06:45 AM. Pass registered on your QR profile.</span>
+          </div>
+          <span class="font-mono bg-emerald-500/20 px-2 py-0.5 rounded text-[10px]">QR: DF-8921-MES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: IMPACT ANALYTICS SIMULATOR -->
+    <div id="view-analytics" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 border border-slate-800">
+        <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+          <i data-lucide="bar-chart-3" class="w-5 h-5 text-emerald-400"></i> Qatar National Vision 2030 Scaling Simulator
+        </h2>
+        <p class="text-xs text-slate-400 mb-6">
+          Adjust the sliders to simulate the environmental and traffic impact if DohaFlow is deployed across private and public school clusters in Qatar.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-2">
+                <span class="text-slate-300">Participating Schools in Doha:</span>
+                <span class="text-emerald-400 font-bold" id="sim-schools-val">10 Schools</span>
+              </div>
+              <input type="range" id="sim-schools" min="1" max="50" value="10" oninput="updateSimulation()" class="w-full accent-emerald-400 bg-slate-900 rounded-lg h-2">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-2">
+                <span class="text-slate-300">Parent Adoption Rate:</span>
+                <span class="text-emerald-400 font-bold" id="sim-adoption-val">35% Adoption</span>
+              </div>
+              <input type="range" id="sim-adoption" min="10" max="90" value="35" oninput="updateSimulation()" class="w-full accent-emerald-400 bg-slate-900 rounded-lg h-2">
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-4">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Projected Annual National Impact</h4>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-sm border-b border-slate-800/80 pb-2">
+                <span class="text-slate-300">Daily School Cars Removed:</span>
+                <span class="font-extrabold text-white" id="sim-res-cars">1,750 cars</span>
+              </div>
+              <div class="flex justify-between items-center text-sm border-b border-slate-800/80 pb-2">
+                <span class="text-slate-300">Annual Fuel Saved:</span>
+                <span class="font-extrabold text-emerald-400" id="sim-res-fuel">315,000 Liters</span>
+              </div>
+              <div class="flex justify-between items-center text-sm border-b border-slate-800/80 pb-2">
+                <span class="text-slate-300">Annual CO₂ Reduction:</span>
+                <span class="font-extrabold text-white" id="sim-res-co2">724.5 Tons</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-4 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+      DohaFlow • Built for MES Youth Hackathon 2026 • Smarter Qatar Theme
+    </div>
+  </footer>
+
+  <!-- App Data & Interactivity Logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mock Database tailored for Doha compounds and schools
+    const db = [
+      { id: 1, name: "Al-Mansoori Family", compound: "Al Thumama", zone: "Zone 47", school: "MES Indian School", arrival: "06:45", seats: 2, verified: true, distance: "280m away" },
+      { id: 2, name: "Sharma Family", compound: "Al Thumama", zone: "Zone 47", school: "MES Indian School", arrival: "06:45", seats: 1, verified: true, distance: "420m away" },
+      { id: 3, name: "Khan Family", compound: "Ain Khaled", zone: "Zone 56", school: "MES Indian School", arrival: "06:50", seats: 3, verified: true, distance: "190m away" },
+      { id: 4, name: "Perera Family", compound: "Ain Khaled", zone: "Zone 56", school: "Stafford Sri Lankan School", arrival: "06:45", seats: 2, verified: true, distance: "510m away" },
+      { id: 5, name: "Al-Kuwari Family", compound: "Al Waab", zone: "Zone 55", school: "Doha British School", arrival: "07:00", seats: 2, verified: true, distance: "150m away" },
+      { id: 6, name: "Patel Family", compound: "Abu Hamour", zone: "Zone 56", school: "MES Indian School", arrival: "06:40", seats: 2, verified: true, distance: "340m away" },
+      { id: 7, name: "Al-Haji Family", compound: "Al Thumama", zone: "Zone 47", school: "MES Indian School", arrival: "06:45", seats: 2, verified: true, distance: "600m away" },
+      { id: 8, name: "Fernando Family", compound: "Abu Hamour", zone: "Zone 56", school: "Stafford Sri Lankan School", arrival: "06:45", seats: 1, verified: true, distance: "220m away" }
+    ];
+
+    let carsOffRoadCount = 42;
+    let activeGroupsCount = 14;
+
+    function renderMatches(matches) {
+      const listContainer = document.getElementById('carpool-results-list');
+      const countBadge = document.getElementById('match-count-badge');
+      countBadge.innerText = `${matches.length} Matches Found`;
+
+      if (matches.length === 0) {
+        listContainer.innerHTML = `
+          <div class="glass-card rounded-2xl p-8 text-center border border-slate-800">
+            <i data-lucide="alert-circle" class="w-8 h-8 text-slate-500 mx-auto mb-2"></i>
+            <p class="text-sm font-semibold text-slate-300">No active matches found for this specific combination.</p>
+            <p class="text-xs text-slate-500 mt-1">Try switching residential zones or broadening your drop-off window.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      listContainer.innerHTML = matches.map(match => `
+        <div class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-white text-base">${match.name}</h4>
+              <span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/20">
+                ${match.distance}
+              </span>
+              ${match.verified ? '<span class="bg-blue-500/10 text-blue-400 text-[10px] font-semibold px-2 py-0.5 rounded flex items-center gap-1"><i data-lucide="shield-check" class="w-3 h-3"></i> School Verified</span>' : ''}
+            </div>
+            <div class="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-slate-400">
+              <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> ${match.compound} (${match.zone})</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-slate-500"></i> Arrival: <strong class="text-slate-200">${match.arrival} AM</strong></span>
+              <span class="flex items-center gap-1"><i data-lucide="car" class="w-3.5 h-3.5 text-slate-500"></i> Seats: <strong class="text-emerald-400">${match.seats} Open</strong></span>
+            </div>
+          </div>
+          <div>
+            <button onclick="confirmRide('${match.name}', this)" class="w-full sm:w-auto bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700 hover:border-emerald-500 text-slate-200 font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 whitespace-nowrap">
+              <span>Join Carpool Pool</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function runMatchingAlgorithm() {
+      const selectedSchool = document.getElementById('school-select').value;
+      const selectedZone = document.getElementById('zone-select').value;
+
+      document.getElementById('search-summary-text').innerText = `Showing verified matches for ${selectedSchool} in ${selectedZone}`;
+
+      const filtered = db.filter(item => item.school === selectedSchool && item.compound === selectedZone);
+      renderMatches(filtered);
+    }
+
+    function confirmRide(familyName, button) {
+      button.disabled = true;
+      button.className = "w-full sm:w-auto bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-default";
+      button.innerHTML = '<i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Match Confirmed!';
+
+      // Update Impact Counters Dynamically
+      carsOffRoadCount += 1;
+      activeGroupsCount += 1;
+
+      document.getElementById('stat-cars').innerText = carsOffRoadCount;
+      document.getElementById('stat-groups').innerText = activeGroupsCount;
+
+      const delayMinutes = Math.round(carsOffRoadCount * 0.45);
+      const co2Kg = (carsOffRoadCount * 2.3).toFixed(1);
+
+      document.getElementById('stat-delay').innerText = `${delayMinutes} min`;
+      document.getElementById('stat-co2').innerText = `${co2Kg} kg`;
+
+      lucide.createIcons();
+    }
+
+    function switchTab(tabName) {
+      document.getElementById('view-carpool').classList.add('hidden');
+      document.getElementById('view-stagger').classList.add('hidden');
+      document.getElementById('view-analytics').classList.add('hidden');
+
+      document.getElementById('tab-carpool').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2";
+      document.getElementById('tab-stagger').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2";
+      document.getElementById('tab-analytics').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2";
+
+      if (tabName === 'carpool') {
+        document.getElementById('view-carpool').classList.remove('hidden');
+        document.getElementById('tab-carpool').className = "pb-3 border-b-2 border-emerald-400 text-emerald-400 flex items-center gap-2";
+      } else if (tabName === 'stagger') {
+        document.getElementById('view-stagger').classList.remove('hidden');
+        document.getElementById('tab-stagger').className = "pb-3 border-b-2 border-emerald-400 text-emerald-400 flex items-center gap-2";
+      } else if (tabName === 'analytics') {
+        document.getElementById('view-analytics').classList.remove('hidden');
+        document.getElementById('tab-analytics').className = "pb-3 border-b-2 border-emerald-400 text-emerald-400 flex items-center gap-2";
+      }
+    }
+
+    function selectWindow(timeSlot, btn) {
+      document.getElementById('slot-confirmation').classList.remove('hidden');
+      document.getElementById('slot-confirmation-text').innerText = `Selected Gate Window: ${timeSlot}. Departure token active.`;
+    }
+
+    function updateSimulation() {
+      const schools = parseInt(document.getElementById('sim-schools').value);
+      const adoption = parseInt(document.getElementById('sim-adoption').value);
+
+      document.getElementById('sim-schools-val').innerText = `${schools} Schools`;
+      document.getElementById('sim-adoption-val').innerText = `${adoption}% Adoption`;
+
+      const totalCarsRemoved = Math.round(schools * 500 * (adoption / 100));
+      const annualFuel = Math.round(totalCarsRemoved * 180);
+      const annualCo2 = (annualFuel * 0.0023).toFixed(1);
+
+      document.getElementById('sim-res-cars').innerText = `${totalCarsRemoved.toLocaleString()} cars`;
+      document.getElementById('sim-res-fuel').innerText = `${annualFuel.toLocaleString()} Liters`;
+      document.getElementById('sim-res-co2').innerText = `${annualCo2} Tons`;
+    }
+
+    // Initial Load
+    runMatchingAlgorithm();
+  </script>
+</body>
+</html>
